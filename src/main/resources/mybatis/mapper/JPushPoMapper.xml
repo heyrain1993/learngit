@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hicetech.ucenter.dao.JPushPoMapper" >
+  <resultMap id="BaseResultMap" type="com.hicetech.ucenter.model.JPushPo" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="createTime" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="jpalias" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jptags" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jpgroup" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="jpregistrationId" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createTime, jpalias, jptags, jpgroup, jpregistrationId, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hicetech.ucenter.model.JPushPoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ucenter_user_jpush
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ucenter_user_jpush
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ucenter_user_jpush
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hicetech.ucenter.model.JPushPoExample" >
+    delete from ucenter_user_jpush
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hicetech.ucenter.model.JPushPo" useGeneratedKeys="true" keyProperty="id" >
+    insert into ucenter_user_jpush (createTime, jpalias, jptags, 
+      jpgroup, jpregistrationId, user_id
+      )
+    values (#{createtime,jdbcType=BIGINT}, #{jpalias,jdbcType=VARCHAR}, #{jptags,jdbcType=VARCHAR}, 
+      #{jpgroup,jdbcType=VARCHAR}, #{jpregistrationid,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hicetech.ucenter.model.JPushPo" useGeneratedKeys="true" keyProperty="id" >
+    insert into ucenter_user_jpush
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="jpalias != null" >
+        jpalias,
+      </if>
+      <if test="jptags != null" >
+        jptags,
+      </if>
+      <if test="jpgroup != null" >
+        jpgroup,
+      </if>
+      <if test="jpregistrationid != null" >
+        jpregistrationId,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="jpalias != null" >
+        #{jpalias,jdbcType=VARCHAR},
+      </if>
+      <if test="jptags != null" >
+        #{jptags,jdbcType=VARCHAR},
+      </if>
+      <if test="jpgroup != null" >
+        #{jpgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jpregistrationid != null" >
+        #{jpregistrationid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hicetech.ucenter.model.JPushPoExample" resultType="java.lang.Integer" >
+    select count(*) from ucenter_user_jpush
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ucenter_user_jpush
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.jpalias != null" >
+        jpalias = #{record.jpalias,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jptags != null" >
+        jptags = #{record.jptags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jpgroup != null" >
+        jpgroup = #{record.jpgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jpregistrationid != null" >
+        jpregistrationId = #{record.jpregistrationid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ucenter_user_jpush
+    set id = #{record.id,jdbcType=BIGINT},
+      createTime = #{record.createtime,jdbcType=BIGINT},
+      jpalias = #{record.jpalias,jdbcType=VARCHAR},
+      jptags = #{record.jptags,jdbcType=VARCHAR},
+      jpgroup = #{record.jpgroup,jdbcType=VARCHAR},
+      jpregistrationId = #{record.jpregistrationid,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hicetech.ucenter.model.JPushPo" >
+    update ucenter_user_jpush
+    <set >
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="jpalias != null" >
+        jpalias = #{jpalias,jdbcType=VARCHAR},
+      </if>
+      <if test="jptags != null" >
+        jptags = #{jptags,jdbcType=VARCHAR},
+      </if>
+      <if test="jpgroup != null" >
+        jpgroup = #{jpgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="jpregistrationid != null" >
+        jpregistrationId = #{jpregistrationid,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hicetech.ucenter.model.JPushPo" >
+    update ucenter_user_jpush
+    set createTime = #{createtime,jdbcType=BIGINT},
+      jpalias = #{jpalias,jdbcType=VARCHAR},
+      jptags = #{jptags,jdbcType=VARCHAR},
+      jpgroup = #{jpgroup,jdbcType=VARCHAR},
+      jpregistrationId = #{jpregistrationid,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

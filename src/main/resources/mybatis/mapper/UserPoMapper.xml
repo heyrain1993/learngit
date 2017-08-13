@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hicetech.ucenter.dao.UserPoMapper" >
+  <resultMap id="BaseResultMap" type="com.hicetech.ucenter.model.UserPo" >
+    <constructor >
+      <idArg column="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="createTime" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="account" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mobileNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nickName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="portraitUrl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gender" jdbcType="TINYINT" javaType="java.lang.Byte" />
+      <arg column="birthday" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="weight" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="height" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="idNumber" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="country" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="countryText" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="province" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="provinceText" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="city" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="cityText" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="district" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="districtText" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="detailAddr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="signature" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="regSource" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="status" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createTime, account, password, mobileNum, nickName, portraitUrl, gender, birthday, 
+    weight, height, name, idNumber, country, countryText, province, provinceText, city, 
+    cityText, district, districtText, detailAddr, signature, regSource, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hicetech.ucenter.model.UserPoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ucenter_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ucenter_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ucenter_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hicetech.ucenter.model.UserPoExample" >
+    delete from ucenter_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hicetech.ucenter.model.UserPo" useGeneratedKeys="true" keyProperty="id" >
+    insert into ucenter_user (createTime, account, password, 
+      mobileNum, nickName, portraitUrl, 
+      gender, birthday, weight, 
+      height, name, idNumber, 
+      country, countryText, province, 
+      provinceText, city, cityText, 
+      district, districtText, detailAddr, 
+      signature, regSource, status
+      )
+    values (#{createtime,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{mobilenum,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{portraiturl,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=BIGINT}, #{weight,jdbcType=INTEGER}, 
+      #{height,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{idnumber,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{countrytext,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{provincetext,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{citytext,jdbcType=VARCHAR}, 
+      #{district,jdbcType=VARCHAR}, #{districttext,jdbcType=VARCHAR}, #{detailaddr,jdbcType=VARCHAR}, 
+      #{signature,jdbcType=VARCHAR}, #{regsource,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hicetech.ucenter.model.UserPo" useGeneratedKeys="true" keyProperty="id" >
+    insert into ucenter_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="mobilenum != null" >
+        mobileNum,
+      </if>
+      <if test="nickname != null" >
+        nickName,
+      </if>
+      <if test="portraiturl != null" >
+        portraitUrl,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idnumber != null" >
+        idNumber,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="countrytext != null" >
+        countryText,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="provincetext != null" >
+        provinceText,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="citytext != null" >
+        cityText,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="districttext != null" >
+        districtText,
+      </if>
+      <if test="detailaddr != null" >
+        detailAddr,
+      </if>
+      <if test="signature != null" >
+        signature,
+      </if>
+      <if test="regsource != null" >
+        regSource,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createtime != null" >
+        #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilenum != null" >
+        #{mobilenum,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="portraiturl != null" >
+        #{portraiturl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="countrytext != null" >
+        #{countrytext,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provincetext != null" >
+        #{provincetext,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="citytext != null" >
+        #{citytext,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="districttext != null" >
+        #{districttext,jdbcType=VARCHAR},
+      </if>
+      <if test="detailaddr != null" >
+        #{detailaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="regsource != null" >
+        #{regsource,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hicetech.ucenter.model.UserPoExample" resultType="java.lang.Integer" >
+    select count(*) from ucenter_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ucenter_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=BIGINT},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilenum != null" >
+        mobileNum = #{record.mobilenum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        nickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.portraiturl != null" >
+        portraitUrl = #{record.portraiturl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=TINYINT},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=BIGINT},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idnumber != null" >
+        idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.countrytext != null" >
+        countryText = #{record.countrytext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provincetext != null" >
+        provinceText = #{record.provincetext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.citytext != null" >
+        cityText = #{record.citytext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districttext != null" >
+        districtText = #{record.districttext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailaddr != null" >
+        detailAddr = #{record.detailaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signature != null" >
+        signature = #{record.signature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regsource != null" >
+        regSource = #{record.regsource,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ucenter_user
+    set id = #{record.id,jdbcType=BIGINT},
+      createTime = #{record.createtime,jdbcType=BIGINT},
+      account = #{record.account,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      mobileNum = #{record.mobilenum,jdbcType=VARCHAR},
+      nickName = #{record.nickname,jdbcType=VARCHAR},
+      portraitUrl = #{record.portraiturl,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=TINYINT},
+      birthday = #{record.birthday,jdbcType=BIGINT},
+      weight = #{record.weight,jdbcType=INTEGER},
+      height = #{record.height,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      idNumber = #{record.idnumber,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      countryText = #{record.countrytext,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      provinceText = #{record.provincetext,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      cityText = #{record.citytext,jdbcType=VARCHAR},
+      district = #{record.district,jdbcType=VARCHAR},
+      districtText = #{record.districttext,jdbcType=VARCHAR},
+      detailAddr = #{record.detailaddr,jdbcType=VARCHAR},
+      signature = #{record.signature,jdbcType=VARCHAR},
+      regSource = #{record.regsource,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hicetech.ucenter.model.UserPo" >
+    update ucenter_user
+    <set >
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=BIGINT},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilenum != null" >
+        mobileNum = #{mobilenum,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="portraiturl != null" >
+        portraitUrl = #{portraiturl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=BIGINT},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idnumber != null" >
+        idNumber = #{idnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="countrytext != null" >
+        countryText = #{countrytext,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provincetext != null" >
+        provinceText = #{provincetext,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="citytext != null" >
+        cityText = #{citytext,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="districttext != null" >
+        districtText = #{districttext,jdbcType=VARCHAR},
+      </if>
+      <if test="detailaddr != null" >
+        detailAddr = #{detailaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="signature != null" >
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+      <if test="regsource != null" >
+        regSource = #{regsource,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hicetech.ucenter.model.UserPo" >
+    update ucenter_user
+    set createTime = #{createtime,jdbcType=BIGINT},
+      account = #{account,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      mobileNum = #{mobilenum,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      portraitUrl = #{portraiturl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=BIGINT},
+      weight = #{weight,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      idNumber = #{idnumber,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      countryText = #{countrytext,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      provinceText = #{provincetext,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      cityText = #{citytext,jdbcType=VARCHAR},
+      district = #{district,jdbcType=VARCHAR},
+      districtText = #{districttext,jdbcType=VARCHAR},
+      detailAddr = #{detailaddr,jdbcType=VARCHAR},
+      signature = #{signature,jdbcType=VARCHAR},
+      regSource = #{regsource,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

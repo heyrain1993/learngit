@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.hicetech</groupId>
+	<artifactId>ucenterservice</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>ucenterservice</name>
+	<url>http://maven.apache.org</url>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.6.RELEASE</version>
+	</parent>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<mybatis_spring_version>1.2.0</mybatis_spring_version>
+		<druid_version>1.0.9</druid_version>
+		<cloopen_sms_version>2.6.3r</cloopen_sms_version>
+		<cloud_version>Brixton.SR5</cloud_version>
+		<starter_version>1.1.1</starter_version>
+		<mybatis.version>3.3.0</mybatis.version>
+		<mybatis-spring.version>1.3.0</mybatis-spring.version>
+		<mybatis_pageplugin_version>4.1.2</mybatis_pageplugin_version>
+	</properties>
+	<dependencies>
+		<!-- 配置spring mvc 排除默认的日志管理jar-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+		<!-- 配置mybatis -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${starter_version}</version>
+		</dependency>
+		<!-- 配置数据源和MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid_version}</version>
+		</dependency>
+		<!-- 配置log4j -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+        </dependency>
+        <!-- 配置短信SDK -->
+        <!-- <dependency>
+	        <groupId>com.cloopen</groupId>
+			<artifactId>CCPRestSmsSDK</artifactId>
+			<version>${cloopen_sms_version}</version>
+		</dependency> -->
+		<!-- 配置缓存 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>
+		<!-- 配置服务治理 -->
+		<!-- <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-ribbon</artifactId>
+		</dependency> -->
+		<!-- 配置分页插件 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${mybatis_pageplugin_version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${cloud_version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+					<configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

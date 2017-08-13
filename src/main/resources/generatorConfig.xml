@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- mysql的jar文件路径 -->
+	<classPathEntry
+		location="E:\devTools\m2Repo\repo\mysql\mysql-connector-java\5.1.40\mysql-connector-java-5.1.40.jar" />
+	<context id="default" targetRuntime="MyBatis3">
+		<!-- 生成的Java文件的编码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+		<!-- 格式化java代码 -->
+		<property name="javaFormatter"
+			value="org.mybatis.generator.api.dom.DefaultJavaFormatter" />
+		<!-- 格式化XML代码 -->
+		<property name="xmlFormatter"
+			value="org.mybatis.generator.api.dom.DefaultXmlFormatter" />
+
+		<!-- 可选参数，旨在创建class时，对注释进行控制 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" /><!-- 是否取消注释 
+				true：是 ： false:否 -->
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳 -->
+		</commentGenerator>
+
+		<!--数据库链接URL，用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.1.241/user_center?useUnicode=true&amp;characterEncoding=utf8"
+			userId="root" password="zmkaimen12" />
+
+		<!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制 -->
+		<javaTypeResolver>
+			<!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- Model模型生成器,用来生成含有主键的模型类，记录类 以及查询Example类 -->
+		<javaModelGenerator targetPackage="com.hicetech.ucenter.model"
+			targetProject="src/main/java">
+			<!-- for MyBatis3/MyBatis3Simple 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter -->
+			<property name="constructorBased" value="true" />
+
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="false" />
+
+			<!-- 建立的Model对象是否 不可改变 即生成的Model对象不会有 setter方法，只有构造方法 -->
+			<property name="immutable" value="false" />
+
+			<!-- 设置一个根对象，如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项。 
+				注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括： 1，属性名相同，类型相同，有相同的getter/setter方法； -->
+			<!-- <property name="rootClass" value="com.hicetech.mod.knowledge.po.AbstractModulesKnowledgePo" 
+				/> -->
+
+			<!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的mapper文件 -->
+		<sqlMapGenerator targetPackage="mybatis.mapper"
+			targetProject="src/main/resources">
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码(生成DAO) type="ANNOTATEDMAPPER",生成Java 
+			Model 和基于注解的Mapper对象 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象 type="XMLMAPPER",生成SQLMap 
+			XML文件和独立的Mapper接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.hicetech.ucenter.dao" targetProject="src/main/java">
+			<!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+			<property name="enableSubPackages" value="false" />
+
+			<!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查 -->
+			<!-- <property name="rootInterface"
+				value="com.hicetech.mod.knowledge.dao.AbstractModulesKnowledgeDao" /> -->
+		</javaClientGenerator>
+
+		<!-- tableName是数据库中的表名，domainObjectName是生成的JAVA模型名， -->
+
+		<!-- <table schema="user_center" tableName="ucenter_baby"
+			domainObjectName="Baby" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+
+		<table schema="user_center" tableName="ucenter_user"
+			domainObjectName="UserPo" enableCountByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			enableUpdateByExample="true">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table>
+
+		<!-- <table schema="user_center" tableName="ucenter_user_baby"
+			domainObjectName="UserBaby" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+
+		<!-- <table schema="user_center" tableName="ucenter_role"
+			domainObjectName="Role" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table>
+
+		<table schema="user_center" tableName="ucenter_permissions"
+			domainObjectName="Permission" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+		</table> -->
+		<table schema="user_center" tableName="ucenter_portrait"
+			domainObjectName="PortraitPo" enableCountByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			enableUpdateByExample="true">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table>
+		<table schema="user_center" tableName="ucenter_user_jpush"
+			domainObjectName="JPushPo" enableCountByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			enableUpdateByExample="true">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table>
+		<!-- <table schema="user_center" tableName="ucenter_role_permission"
+			domainObjectName="RolePermission" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table>
+		<table schema="user_center" tableName="ucenter_baby_growth"
+			domainObjectName="Growth" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table> -->
+		<!-- <table schema="user_center" tableName="ucenter_baby_growth_standard"
+			domainObjectName="GrowthStandard" enableCountByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			enableUpdateByExample="false">
+			<generatedKey column="id" sqlStatement="JDBC" />
+
+		</table> -->
+	</context>
+</generatorConfiguration>  
